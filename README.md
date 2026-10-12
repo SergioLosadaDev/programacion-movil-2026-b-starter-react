@@ -27,6 +27,8 @@ npm run build      # revisión de tipos y compilación para producción
 
 La app y la API se ejecutan al mismo tiempo, cada una en su terminal. La app lee la dirección de la API de la variable `VITE_API_URL`: copie `.env.example` como `.env` si necesita cambiarla. El archivo `.env` está ignorado por Git; nunca se versiona.
 
+El ejercicio Kotlin es independiente de la app: copie `kotlin/Product.kt` en [Kotlin Playground](https://play.kotlinlang.org) y ejecútelo con **Run**. No requiere crear un proyecto Android.
+
 Rutas de la app: `/productos` (lista), `/productos/nuevo`, `/productos/:id` (detalle) y `/productos/:id/editar`.
 
 La API implementa el CRUD en memoria y la app incluye lista, detalle y formularios para crear y editar. Antes de entregar, ejecute `npm test`, `npm run lint` y `npm run build`; registre los resultados observados en `docs/definition-of-done.md`.

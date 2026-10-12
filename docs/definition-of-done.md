@@ -4,7 +4,7 @@ Un requisito se marca completo solo cuando existe evidencia en implementación, 
 
 ## Requirements checklist
 
-- [ ] Matriz de trazabilidad enlaza requisitos, artefactos, aceptación y pruebas.
+- [x] Matriz de trazabilidad enlaza requisitos, artefactos, aceptación y pruebas.
 - [ ] Cinco endpoints implementados con códigos y errores especificados.
 - [ ] Validación API/client cubre todas las reglas y devuelve todos los errores detectados.
 - [ ] Filtros de nombre y categoría funcionan individualmente y combinados.
@@ -13,15 +13,15 @@ Un requisito se marca completo solo cuando existe evidencia en implementación, 
 - [ ] Errores 400/404/red se presentan de forma comprensible; DELETE 204 sin parsing.
 - [ ] Kotlin contiene `Product`, `stockLabel`, `applyDiscount` y `main` con tres productos.
 - [ ] Al menos cuatro pruebas nuevas pasan: dos unitarias y dos de integración API.
-- [ ] README documenta instalación, entorno, comandos y ambas secciones inglesas de 3–5 frases.
-- [ ] `.env` ignorado, `.env.example` presente y sin secretos versionados.
-- [ ] Documentación se confirmó antes del primer commit de implementación.
-- [ ] Mínimo seis commits significativos con Conventional Commits en rama de funcionalidad.
+- [x] README documenta instalación, entorno, comandos y ambas secciones inglesas de 3–5 frases.
+- [x] `.env` ignorado y `.env.example` presente; la revisión de archivos versionados no encontró `.env`.
+- [x] Documentación se confirmó antes del primer commit de implementación.
+- [x] Mínimo seis commits significativos con Conventional Commits en rama de funcionalidad.
 - [ ] `npm test` pasa: pendiente de ejecutar.
 - [ ] `npm run lint` pasa: pendiente de ejecutar.
 - [ ] `npm run build` pasa: pendiente de ejecutar.
 - [ ] `npm run server` y `npm run dev` comprobados: pendiente de ejecutar.
-- [ ] Pull Request hacia `main` del fork propio creado y enlazado: pendiente.
+- [ ] Rama subida y Pull Request hacia `main` del fork propio creado y enlazado: pendiente.
 - [ ] Verificación manual de accesibilidad y plataformas documentada: pendiente / no exigida por el flujo automatizado del examen.
 
 ## Delivery checklist
