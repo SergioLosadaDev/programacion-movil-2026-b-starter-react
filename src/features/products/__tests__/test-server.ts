@@ -14,7 +14,10 @@ import { createApp } from '../../../../server/app.js';
  */
 export async function startTestServer(): Promise<{ baseUrl: string; close: () => Promise<void> }> {
   const server = createApp().listen(0);
-  await new Promise((resolve) => server.once('listening', resolve));
+  await new Promise<void>((resolve, reject) => {
+    server.once('listening', resolve);
+    server.once('error', reject);
+  });
   const baseUrl = `http://localhost:${server.address().port}`;
   const close = () => new Promise<void>((resolve) => server.close(() => resolve()));
   return { baseUrl, close };

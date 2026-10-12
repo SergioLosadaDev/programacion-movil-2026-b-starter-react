@@ -4,27 +4,66 @@ import {
   IonButtons,
   IonContent,
   IonHeader,
+  IonItem,
+  IonLabel,
+  IonList,
   IonPage,
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import { useParams } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
 
-/**
- * Pantalla: detalle de un producto (ruta /productos/:id).
- *
- * `useParams` lee el `:id` de la ruta; llega como TEXTO, así que se convierte con `Number(id)`.
- *
- * TODO(Parte 3): cargar el producto con `getProduct(Number(id))` (patrón de la lista: `useState` +
- * `useEffect`) y mostrar nombre, categoría, precio, stock y la etiqueta de stock (`toProductView`).
- * Maneje carga y error (incluido «no encontrado», que llega como ApiError 404 y se traduce con
- * `getErrorMessage`). Agregue el botón «Editar» (/productos/:id/editar) y el botón «Eliminar» con
- * una confirmación simple en pantalla (una variable booleana que muestra «¿Eliminar este
- * producto?» con los botones Confirmar y Cancelar); al confirmar, llame a `deleteProduct(id)` y
- * regrese a la lista (`useHistory`).
- */
+import { getErrorMessage } from '../data/api-error';
+import { deleteProduct, getProduct } from '../data/products-api';
+import { toProductView, type Product } from '../domain/product';
+import EmptyState from './EmptyState';
+
+type DetailStatus = 'loading' | 'ready' | 'error';
+
 const ProductDetailPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id: rawId } = useParams<{ id: string }>();
+  const id = /^\d+$/.test(rawId) ? Number(rawId) : NaN;
+  const isValidId = Number.isSafeInteger(id) && id > 0;
+  const [product, setProduct] = useState<Product | null>(null);
+  const [status, setStatus] = useState<DetailStatus>(isValidId ? 'loading' : 'error');
+  const [errorMessage, setErrorMessage] = useState(isValidId ? '' : 'El identificador del producto no es válido.');
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const history = useHistory();
+
+  const loadProduct = useCallback(async () => {
+    if (!isValidId) return;
+    setStatus('loading');
+    setErrorMessage('');
+    try {
+      setProduct(await getProduct(id));
+      setStatus('ready');
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error));
+      setStatus('error');
+    }
+  }, [id, isValidId]);
+
+  useEffect(() => {
+    void loadProduct();
+  }, [loadProduct]);
+
+  const confirmDelete = async () => {
+    setIsDeleting(true);
+    setErrorMessage('');
+    try {
+      await deleteProduct(id);
+      history.replace('/productos');
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error));
+      setIsConfirmingDelete(false);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const view = product ? toProductView(product) : null;
 
   return (
     <IonPage>
@@ -37,8 +76,43 @@ const ProductDetailPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <p>TODO(Parte 3): detalle del producto con id {id}.</p>
-        <IonButton routerLink={`/productos/${id}/editar`}>Editar (ejemplo)</IonButton>
+        {status === 'loading' && <p role="status">Cargando producto…</p>}
+        {status === 'error' && (
+          <EmptyState
+            title={errorMessage.includes('encontramos') ? 'Producto no encontrado' : 'No se pudo cargar el producto'}
+            message={errorMessage}
+            actionLabel={isValidId ? 'Reintentar' : undefined}
+            onAction={isValidId ? () => void loadProduct() : undefined}
+          />
+        )}
+        {status === 'ready' && view && (
+          <>
+            <IonList>
+              <IonItem><IonLabel><h2>Nombre</h2><p>{view.name}</p></IonLabel></IonItem>
+              <IonItem><IonLabel><h2>Categoría</h2><p>{view.category}</p></IonLabel></IonItem>
+              <IonItem><IonLabel><h2>Precio</h2><p>{view.priceLabel}</p></IonLabel></IonItem>
+              <IonItem><IonLabel><h2>Stock</h2><p>{view.stock}</p></IonLabel></IonItem>
+              <IonItem><IonLabel><h2>Disponibilidad</h2><p>{view.stockLabel}</p></IonLabel></IonItem>
+            </IonList>
+            <IonButton expand="block" routerLink={`/productos/${id}/editar`}>Editar</IonButton>
+            {!isConfirmingDelete ? (
+              <IonButton expand="block" color="danger" onClick={() => setIsConfirmingDelete(true)}>
+                Eliminar
+              </IonButton>
+            ) : (
+              <section aria-label="Confirmar eliminación">
+                <p>¿Eliminar este producto?</p>
+                <IonButton color="danger" disabled={isDeleting} onClick={() => void confirmDelete()}>
+                  {isDeleting ? 'Eliminando…' : 'Confirmar'}
+                </IonButton>
+                <IonButton fill="outline" disabled={isDeleting} onClick={() => setIsConfirmingDelete(false)}>
+                  Cancelar
+                </IonButton>
+              </section>
+            )}
+            {errorMessage && <p role="alert">{errorMessage}</p>}
+          </>
+        )}
       </IonContent>
     </IonPage>
   );
