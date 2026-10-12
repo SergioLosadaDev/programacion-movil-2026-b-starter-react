@@ -1,0 +1,27 @@
+# Matriz de trazabilidad — Parcial práctico C2
+
+Estados iniciales antes de implementación: `Pending`. Se actualizarán conforme se implementen y verifiquen los requisitos. Las referencias numeradas corresponden a `TODO.md` y al resumen del enunciado oficial.
+
+| Requirement | Implementation / documentation | Acceptance criteria | Verification | Status |
+|-------------|--------------------------------|--------------------|--------------|--------|
+| Feature, state, screens, endpoints, edge cases (TODO 1) | `docs/features/productos.md`; ADRs | Alcance y flujos completos descritos | Revisión documental | Pending |
+| Screen list / detail / form (TODO 2) | `docs/screens/product-list.md`, `product-detail.md`, `product-form.md` | Regiones, estados, acciones, accesibilidad documentadas | Revisión documental | Pending |
+| State decision (TODO 3) | `docs/decisions/ADR-001-estado.md` | Contexto, decisión, alternativas y efectos | Revisión documental | Pending |
+| API consumption decision (TODO 4) | `docs/decisions/ADR-002-consumo-api.md` | fetch/API_URL/ApiError y errores descritos | Revisión documental | Pending |
+| Five endpoint contracts (TODO 5, 7–10) | `docs/api/products-endpoints.md`; `server/app.js`; `products-api.ts` | Métodos, parámetros, códigos, validación, filtros y UI definidos | API integration tests + manual requests | Pending |
+| Product entity (TODO 6) | `docs/api/product-entity.md`; domain `product.ts` | Tipos, nullabilidad y restricciones concordantes | Unit tests + review | Pending |
+| Error handlers supplied (TODO 11) | `server/app.js`; `products-api.test.ts`; README | Ruta desconocida 404 y central 500 se comprenden; test 404 | API integration test; README English section | Pending |
+| API CRUD and validation (TODO 7–10) | `server/app.js` | 200/201/204/400/404 contract; all validation problems | API integration tests | Pending |
+| HTTP client operations (TODO 12) | `src/features/products/data/products-api.ts` | Five exported operations; handles 204 and ApiError | API client tests / app integration | Pending |
+| Domain rules (TODO 13) | `src/features/products/domain/product.ts` | validation, view mapping, filtering, COP format and stock labels | Unit tests | Pending |
+| Product list (TODO 14) | `ProductListPage.tsx`, `ProductCard.tsx`, `EmptyState.tsx` | Four states, search/category, navigation, refresh-on-return | UI review/tests + API run | Pending |
+| Reusable product card (TODO 15) | `presentation/ProductCard.tsx` | Typed props, product fields and visible stock warning | UI test/review | Pending |
+| Product detail (TODO 16) | `presentation/ProductDetailPage.tsx` | All fields, ID validation, edit/delete confirmation and 404 | UI review + API run | Pending |
+| Create/edit form (TODO 17) | `presentation/ProductFormPage.tsx` | Prefill, field errors, server details, duplicate-send guard | UI review + API run | Pending |
+| Routes/navigation (TODO 18) | `src/app/App.tsx` | Four required paths navigate by ID | App run | Pending |
+| Kotlin exercise (TODO 19–21) | `kotlin/Product.kt` | Nullable stock, labels, discount, three output records | Kotlin Playground or local compiler | Pending |
+| Four new tests (TODO 22) | `src/features/products/__tests__/` | ≥2 unit + ≥2 API integration tests passing | `npm test` | Pending |
+| DoD and secrets (TODO 23–24) | This file; `.gitignore`; `.env.example` | Checklist reflects evidence; no secrets | Git review | Pending |
+| Branch, commits, PR, README execution (TODO 25–28) | Git history; README; GitHub PR | Feature branch, ≥6 meaningful conventional commits, PR to own fork | `git log`, remote and PR URL | Pending |
+| English sections (TODO 29–30) | Root `README.md` | Each required heading has 3–5 accurate English sentences | Manual review | Pending |
+| Quality commands / first commit ordering | DoD; Git history | tests, lint, build pass; docs commit precedes code | Commands and `git log` | Pending |
