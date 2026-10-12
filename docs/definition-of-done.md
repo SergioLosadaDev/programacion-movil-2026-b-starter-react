@@ -21,7 +21,7 @@ Un requisito se marca completo solo cuando existe evidencia en implementación, 
 - [x] `npm run lint` pasa: verificado sin errores ni warnings.
 - [x] `npm run build` pasa; Vite informa que el chunk principal supera 500 kB.
 - [ ] `npm run server` y `npm run dev` funcionan extremo a extremo: Vite no puede enlazar `::1:5173` (`listen EPERM`); el proceso del servidor imprime el mensaje de inicio, pero el sandbox no permite verificar peticiones ni mantener el listener.
-- [ ] Rama subida y Pull Request hacia `main` del fork propio creado y enlazado: rama subida; creación del PR pendiente porque la autenticación local de `gh` no es válida.
+- [ ] Últimos commits subidos y Pull Request hacia `main` del fork propio creado: el commit de actualización DoD aún debe subirse; `gh auth status` reporta token inválido y no hay conexión GitHub confirmada.
 - [ ] Verificación manual de accesibilidad y plataformas documentada: pendiente / no exigida por el flujo automatizado del examen.
 
 ## Delivery checklist

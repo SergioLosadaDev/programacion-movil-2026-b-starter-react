@@ -23,6 +23,6 @@ Estados actualizados con el trabajo hecho y la evidencia disponible. `Completed`
 | Four new tests (TODO 22) | `src/features/products/__tests__/` | ≥2 unit + ≥2 API integration tests passing | User reports `npm test`: 14/14 tests passed, including all 6 API tests | Completed |
 | DoD and secrets (TODO 23–24) | This file; `.gitignore`; `.env.example` | Checklist refleja evidencia; no `.env` versionado | Revisión Git; `.env` ignored, ejemplo tracked | Completed |
 | Branch and commits (TODO 25–26) | Git history | Feature branch and ≥6 meaningful conventional commits | Branch `feature/catalogo-productos` pushed to own fork; history reviewed | Completed |
-| PR and README execution (TODO 27–28) | README; GitHub PR | PR to own fork; startup instructions | README reviewed; `gh auth status` reports invalid token; PR not created | Blocked |
+| PR and README execution (TODO 27–28) | README; GitHub PR | PR to own fork; startup instructions | Base branch pushed; final docs commit needs push; `gh auth status` reports invalid token; PR not created | Blocked |
 | English sections (TODO 29–30) | Root `README.md` | Each required heading has 3–5 accurate English sentences | Conteo y revisión manual | Completed |
 | Quality commands / first commit ordering | DoD; Git history | tests, lint, build pass; docs commit precedes code | User reports 14 tests passed; lint/build passed locally; docs commit precedes code | Completed |
