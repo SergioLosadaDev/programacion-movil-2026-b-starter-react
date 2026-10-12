@@ -19,10 +19,10 @@ Estados actualizados con el trabajo hecho y la evidencia disponible. `Completed`
 | Product detail (TODO 16) | `presentation/ProductDetailPage.tsx` | All fields, ID validation, edit/delete confirmation and 404 | Revisión de código; UI/API run pendiente | In Progress |
 | Create/edit form (TODO 17) | `presentation/ProductFormPage.tsx` | Prefill, field errors, server details, duplicate-send guard | Revisión de código; UI/API run pendiente | In Progress |
 | Routes/navigation (TODO 18) | `src/app/App.tsx` | Four required paths navigate by ID | Rutas base existentes; app no ejecutada | In Progress |
-| Kotlin exercise (TODO 19–21) | `kotlin/Product.kt` | Nullable stock, labels, discount, three output records | Código revisado; compilador/Playground no disponible | In Progress |
+| Kotlin exercise (TODO 19–21) | `kotlin/Product.kt` | Nullable stock, labels, discount, three output records | Usuario confirmó ejecución en Kotlin Playground | Completed |
 | Four new tests (TODO 22) | `src/features/products/__tests__/` | ≥2 unit + ≥2 API integration tests passing | User reports `npm test`: 14/14 tests passed, including all 6 API tests | Completed |
 | DoD and secrets (TODO 23–24) | This file; `.gitignore`; `.env.example` | Checklist refleja evidencia; no `.env` versionado | Revisión Git; `.env` ignored, ejemplo tracked | Completed |
 | Branch and commits (TODO 25–26) | Git history | Feature branch and ≥6 meaningful conventional commits | Branch `feature/catalogo-productos` pushed to own fork; history reviewed | Completed |
-| PR and README execution (TODO 27–28) | README; GitHub PR | PR to own fork; startup instructions | Base branch pushed; final docs commit needs push; `gh auth status` reports invalid token; PR not created | Blocked |
+| PR and README execution (TODO 27–28) | README; GitHub PR | PR to own fork; startup instructions | La rama de implementación está subida; falta PR hacia `main` del fork | In Progress |
 | English sections (TODO 29–30) | Root `README.md` | Each required heading has 3–5 accurate English sentences | Conteo y revisión manual | Completed |
-| Quality commands / first commit ordering | DoD; Git history | tests, lint, build pass; docs commit precedes code | User reports 14 tests passed; lint/build passed locally; docs commit precedes code | Completed |
+| Quality commands / first commit ordering | DoD; Git history | tests, lint, build pass; docs commit precedes code | Usuario reporta 14 pruebas y arranque de server/dev; lint/build pasan; docs precede código | Completed |

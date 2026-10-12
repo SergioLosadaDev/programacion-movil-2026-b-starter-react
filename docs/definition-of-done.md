@@ -11,7 +11,7 @@ Un requisito se marca completo solo cuando existe evidencia en implementación, 
 - [ ] App CRUD con lista, detalle y formulario compartido crear/editar.
 - [ ] Lista distingue carga, colección vacía, sin resultados y error con reintento.
 - [ ] Errores 400/404/red se presentan de forma comprensible; DELETE 204 sin parsing.
-- [ ] Kotlin contiene `Product`, `stockLabel`, `applyDiscount` y `main` con tres productos.
+- [x] Kotlin contiene `Product`, `stockLabel`, `applyDiscount` y `main` con tres productos; ejecución confirmada por el usuario en Kotlin Playground.
 - [x] Al menos cuatro pruebas nuevas pasan: cuatro unitarias nuevas y pruebas de integración API; `npm test` pasó con 14/14.
 - [x] README documenta instalación, entorno, comandos y ambas secciones inglesas de 3–5 frases.
 - [x] `.env` ignorado y `.env.example` presente; la revisión de archivos versionados no encontró `.env`.
@@ -20,8 +20,8 @@ Un requisito se marca completo solo cuando existe evidencia en implementación, 
 - [x] `npm test` pasa: 14 pruebas en 2 archivos, según ejecución del usuario en el entorno local.
 - [x] `npm run lint` pasa: verificado sin errores ni warnings.
 - [x] `npm run build` pasa; Vite informa que el chunk principal supera 500 kB.
-- [ ] `npm run server` y `npm run dev` funcionan extremo a extremo: Vite no puede enlazar `::1:5173` (`listen EPERM`); el proceso del servidor imprime el mensaje de inicio, pero el sandbox no permite verificar peticiones ni mantener el listener.
-- [ ] Últimos commits subidos y Pull Request hacia `main` del fork propio creado: el commit de actualización DoD aún debe subirse; `gh auth status` reporta token inválido y no hay conexión GitHub confirmada.
+- [x] `npm run server` y `npm run dev` arrancan, comprobado por el usuario en su terminal.
+- [ ] Últimos commits subidos y Pull Request hacia `main` del fork propio creado: rama sincronizada; falta abrir el PR.
 - [ ] Verificación manual de accesibilidad y plataformas documentada: pendiente / no exigida por el flujo automatizado del examen.
 
 ## Delivery checklist
