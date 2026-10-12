@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import seedProducts from '../../../../server/data/products.json';
-import { CATEGORIES, formatCOP, LOW_STOCK_THRESHOLD } from '../domain/product';
+import {
+  CATEGORIES,
+  filterProducts,
+  formatCOP,
+  LOW_STOCK_THRESHOLD,
+  toProductView,
+  validateProduct,
+  type Product,
+} from '../domain/product';
 
 /**
  * Pruebas unitarias de EJEMPLO (ya vienen dadas) para que `npm test` corra desde el inicio.
@@ -34,19 +42,45 @@ describe('formatCOP (ejemplo)', () => {
   });
 });
 
-/**
- * TODO(Parte 5): agregue sus pruebas UNITARIAS aquí (o en archivos nuevos dentro de __tests__/).
- * Mínimo dos de estas funciones del dominio: `validateProduct`, `toProductView` o `filterProducts`.
- * Quite el `.todo` cuando escriba el cuerpo de cada una.
- */
 describe('validateProduct', () => {
-  it.todo('rechaza un nombre vacío, un precio menor o igual que 0 y una categoría no permitida');
+  it('rechaza todos los campos inválidos y conserva un problema por campo', () => {
+    const result = validateProduct({ name: '  ', price: 0, category: 'Otro', stock: 1.5 });
+    expect(result.isValid).toBe(false);
+    expect(result.errors).toMatchObject({
+      name: expect.any(String),
+      price: expect.any(String),
+      category: expect.any(String),
+      stock: expect.any(String),
+    });
+  });
+
+  it('acepta valores en los límites permitidos', () => {
+    expect(validateProduct({ name: ' Producto ', price: 0.01, category: 'Hogar', stock: 0 })).toEqual({
+      isValid: true,
+      errors: {},
+    });
+  });
 });
 
 describe('toProductView', () => {
-  it.todo('formatea el precio en pesos y marca «Agotado» y «Pocas unidades»');
+  it('formatea el precio, limpia el nombre y deriva la disponibilidad', () => {
+    const soldOut = toProductView({ id: 1, name: '  Agua  ', price: 1250000, category: 'Bebidas', stock: 0 });
+    const lowStock = toProductView({ id: 2, name: 'Jugo', price: 4500, category: 'Bebidas', stock: 4 });
+    expect(soldOut).toMatchObject({ name: 'Agua', priceLabel: '$ 1.250.000', stockLabel: 'Agotado', isOutOfStock: true });
+    expect(lowStock).toMatchObject({ stockLabel: 'Pocas unidades', isLowStock: true });
+  });
 });
 
 describe('filterProducts', () => {
-  it.todo('filtra por texto sin distinguir mayúsculas y por categoría exacta');
+  it('combina búsqueda insensible a mayúsculas con categoría y no muta la entrada', () => {
+    const products: Product[] = [
+      { id: 1, name: 'Agua mineral', price: 1, category: 'Bebidas', stock: 1 },
+      { id: 2, name: 'Agua de aseo', price: 1, category: 'Aseo', stock: 1 },
+      { id: 3, name: 'Jugo', price: 1, category: 'Bebidas', stock: 1 },
+    ];
+    const result = filterProducts(products, { search: 'AGUA', category: 'Bebidas' });
+    expect(result.map((product) => product.id)).toEqual([1]);
+    expect(result).not.toBe(products);
+    expect(products).toHaveLength(3);
+  });
 });
