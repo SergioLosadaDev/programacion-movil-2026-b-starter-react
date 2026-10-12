@@ -10,14 +10,14 @@ import { startTestServer } from './test-server';
  *  4. `close()` cierra el servidor al terminar.
  */
 let baseUrl = '';
-let close: () => Promise<void>;
+let close: (() => Promise<void>) | undefined;
 
 beforeEach(async () => {
   ({ baseUrl, close } = await startTestServer());
 });
 
 afterEach(async () => {
-  await close();
+  await close?.();
 });
 
 describe('API de productos (ejemplo)', () => {
