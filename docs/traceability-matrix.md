@@ -20,9 +20,9 @@ Estados actualizados con el trabajo hecho y la evidencia disponible. `Completed`
 | Create/edit form (TODO 17) | `presentation/ProductFormPage.tsx` | Prefill, field errors, server details, duplicate-send guard | Revisión de código; UI/API run pendiente | In Progress |
 | Routes/navigation (TODO 18) | `src/app/App.tsx` | Four required paths navigate by ID | Rutas base existentes; app no ejecutada | In Progress |
 | Kotlin exercise (TODO 19–21) | `kotlin/Product.kt` | Nullable stock, labels, discount, three output records | Código revisado; compilador/Playground no disponible | In Progress |
-| Four new tests (TODO 22) | `src/features/products/__tests__/` | ≥2 unit + ≥2 API integration tests passing | Tests añadidos; `npm test` no arranca sin Vitest | In Progress |
+| Four new tests (TODO 22) | `src/features/products/__tests__/` | ≥2 unit + ≥2 API integration tests passing | 8 unitarios pasan; 6 de API fallan al enlazar socket (`listen EPERM`) en el sandbox | In Progress |
 | DoD and secrets (TODO 23–24) | This file; `.gitignore`; `.env.example` | Checklist refleja evidencia; no `.env` versionado | Revisión Git; `.env` ignored, ejemplo tracked | Completed |
 | Branch and commits (TODO 25–26) | Git history | Feature branch and ≥6 meaningful conventional commits | `git status`, `git log` | Completed |
 | PR and README execution (TODO 27–28) | README; GitHub PR | PR to own fork; startup instructions | README revisado; `git push` falla al resolver `github.com`; PR no creado | In Progress |
 | English sections (TODO 29–30) | Root `README.md` | Each required heading has 3–5 accurate English sentences | Conteo y revisión manual | Completed |
-| Quality commands / first commit ordering | DoD; Git history | tests, lint, build pass; docs commit precedes code | Node syntax checks passed; npm commands blocked; commit order verified | In Progress |
+| Quality commands / first commit ordering | DoD; Git history | tests, lint, build pass; docs commit precedes code | lint/build y 8 pruebas unitarias pasan; integración bloqueada por sockets; orden de commits verificado | In Progress |
