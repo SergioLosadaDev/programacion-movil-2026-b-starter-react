@@ -27,9 +27,9 @@ npm run build      # revisión de tipos y compilación para producción
 
 La app y la API se ejecutan al mismo tiempo, cada una en su terminal. La app lee la dirección de la API de la variable `VITE_API_URL`: copie `.env.example` como `.env` si necesita cambiarla. El archivo `.env` está ignorado por Git; nunca se versiona.
 
-Rutas de la app, ya creadas como pantallas esqueleto: `/productos` (lista), `/productos/nuevo`, `/productos/:id` (detalle) y `/productos/:id/editar`.
+Rutas de la app: `/productos` (lista), `/productos/nuevo`, `/productos/:id` (detalle) y `/productos/:id/editar`.
 
-Hoy la API responde `501 Not implemented` en cada ruta de `/api/products`, y las pantallas muestran un `TODO`. Construir esa funcionalidad es el trabajo del parcial.
+La API implementa el CRUD en memoria y la app incluye lista, detalle y formularios para crear y editar. Antes de entregar, ejecute `npm test`, `npm run lint` y `npm run build`; registre los resultados observados en `docs/definition-of-done.md`.
 
 ## Flujo de entrega
 
@@ -71,36 +71,30 @@ Validación: `name` obligatorio (máximo 60 caracteres), `price` número mayor q
 ## Estructura
 
 ```text
-docs/                         plantillas del framework (se copian y se llenan)
+docs/                         especificaciones, ADRs, contratos y trazabilidad
   features/ screens/ decisions/ api/ definition-of-done.md
-kotlin/Product.kt             ejercicio Kotlin (esqueleto)
+kotlin/Product.kt             ejercicio Kotlin independiente
 server/
-  app.js                      createApp(): rutas de la API (stubs 501) + piezas ya dadas
+  app.js                      createApp(): CRUD, validación y manejo de errores
   index.js                    arranque en el puerto 3000
   data/products.json          8 productos semilla
 src/app/                      arranque, rutas y tema
 src/features/products/        funcionalidad organizada por capas del framework
-  data/                       config.ts (API_URL), api-error.ts (ApiError), products-api.ts (cliente fetch)
-  domain/product.ts           tipos, formatCOP (dado), validateProduct, toProductView, filterProducts
-  presentation/               páginas, EmptyState (dado, modelo de props tipadas) y ProductCard
-  __tests__/                  test-server.ts (helper dado), pruebas de ejemplo y espacio para las suyas
+  data/                       configuración, ApiError y operaciones HTTP fetch
+  domain/product.ts           tipos, validación, transformación, filtros y formato COP
+  presentation/               lista, detalle, formulario, EmptyState y ProductCard
+  __tests__/                  pruebas unitarias e integración API
 ```
 
 Capas (framework, `01-architecture/layers-and-state`): `presentation` depende de `domain` y de `data`; `data` depende de `domain`; `domain` no depende de nada. El estado de cada pantalla puede vivir en la misma página con `useState` y `useEffect`.
 
-## Qué ya viene resuelto
+## State management decision
 
-Para concentrar el parcial en lo trabajado en clase, algunas piezas vienen hechas y con comentarios en español. Se usan y se explican (ADR-002 y la sección «API error handling»), pero no se piden escritas:
+Each page keeps its view state with React `useState`, while `useEffect` loads detail and form data when a route opens. The product list also refreshes when its Ionic view becomes active again, so changes made on another screen appear after returning. This keeps loading, form, filter, and error state close to the screen that renders it without adding a global store. If the app grows to share complex state across many features, we can evaluate a dedicated store and record that change in a new ADR.
 
-- **Servidor:** `express.json()`, `cors()`, `parseId()`, el manejador 404 de rutas desconocidas y el manejador central de errores (500), en `server/app.js`.
-- **Cliente:** `API_URL` (`data/config.ts`), la clase `ApiError` y `getErrorMessage` (`data/api-error.ts`), y `getProducts` resuelta como ejemplo (con la función `request`) en `data/products-api.ts`.
-- **Dominio:** `formatCOP()`.
-- **Presentación:** `EmptyState` como modelo de componente con props tipadas; el esqueleto de la lista (carga con `useEffect` e `IonItem`/`IonLabel`) y el campo `IonInput` del formulario.
-- **Pruebas:** el helper `startTestServer()` y un ejemplo de prueba de la API.
+## API error handling
 
-## Entrega: secciones de este README
-
-Al terminar, agregue aquí abajo las dos secciones escritas en inglés (3 a 5 frases cada una) que indica la Parte 7 de [TODO.md](./TODO.md): **State management decision** y **API error handling**. También actualice este README con cualquier paso adicional necesario para ejecutar su versión.
+The shared `request` helper uses the configured `API_URL` and turns a fetch connection failure into an `ApiError` with a null status. For non-success HTTP responses it preserves the server message, status code, and `details` array; it also handles DELETE 204 without trying to parse a body. Express returns a structured 404 for unknown routes and its central error handler returns a structured 500 for unexpected failures, while malformed JSON is reported as 400. The interface shows connection and not-found messages, displays validation details beside the product form, and does not report failed writes as successful.
 
 ---
 
