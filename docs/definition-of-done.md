@@ -17,11 +17,11 @@ Un requisito se marca completo solo cuando existe evidencia en implementación, 
 - [x] `.env` ignorado y `.env.example` presente; la revisión de archivos versionados no encontró `.env`.
 - [x] Documentación se confirmó antes del primer commit de implementación.
 - [x] Mínimo seis commits significativos con Conventional Commits en rama de funcionalidad.
-- [ ] `npm test` pasa: pendiente de ejecutar.
-- [ ] `npm run lint` pasa: pendiente de ejecutar.
-- [ ] `npm run build` pasa: pendiente de ejecutar.
-- [ ] `npm run server` y `npm run dev` comprobados: pendiente de ejecutar.
-- [ ] Rama subida y Pull Request hacia `main` del fork propio creado y enlazado: pendiente.
+- [ ] `npm test` pasa: bloqueado; `vitest` no está instalado.
+- [ ] `npm run lint` pasa: bloqueado; `eslint` no está instalado.
+- [ ] `npm run build` pasa: bloqueado; TypeScript no encuentra `vite/client`.
+- [ ] `npm run server` y `npm run dev` arrancan: ambos bloqueados por falta de `express` / `vite`.
+- [ ] Rama subida y Pull Request hacia `main` del fork propio creado y enlazado: push bloqueado porque este entorno no resuelve `github.com`.
 - [ ] Verificación manual de accesibilidad y plataformas documentada: pendiente / no exigida por el flujo automatizado del examen.
 
 ## Delivery checklist
